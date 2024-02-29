@@ -22,8 +22,8 @@ function App() {
     localStorage.setItem("feedback", JSON.stringify(feedback));
   }, [feedback])
 
-  const addReviewHandler = (review) => {
-    setFeedback({...feedback, [review]: feedback[review] + 1})
+  const updateFeedback = (feedbackType) => {
+    setFeedback({...feedback, [feedbackType]: feedback[feedbackType] + 1})
   }
 
   const totalFeedback = () => {
@@ -45,7 +45,7 @@ function App() {
     <>
       <Description />
       <Options
-      addReview={addReviewHandler}
+      update={updateFeedback}
       total={total}
       resetFeedback={resetFeedback} 
       />
