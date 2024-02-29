@@ -6,7 +6,7 @@ const Options = ({update, total, resetFeedback}) => {
         <button onClick={() => update('good')} className={css.feedbackButton}>Good</button>
         <button onClick={() => update('neutral')} className={css.feedbackButton}>Neutral</button>
         <button onClick={() => update('bad')} className={css.feedbackButton}>Bad</button>
-        {total ? (<button onClick={resetFeedback} className={css.feedbackButton}>Reset</button>) : ''}
+        {!!total &&  <button onClick={resetFeedback} className={css.feedbackButton}>Reset</button>}
     </div>
   )
 }
