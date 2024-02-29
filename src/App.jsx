@@ -52,8 +52,8 @@ function App() {
     }, [good, neutral, bad])
  
     useEffect(() => {
-      setPositive(Math.round((good / total) * 100))
-    }, [good, total])
+      setPositive(Math.round(((good + neutral) / total) * 100))
+    }, [good, neutral, total])
 
   return (
     <>
