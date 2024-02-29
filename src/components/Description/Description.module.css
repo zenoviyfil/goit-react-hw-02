@@ -1,0 +1,13 @@
+.descriptionHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200px;
+}
+
+.descriptionText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}

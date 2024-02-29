@@ -1,5 +1,8 @@
 .feedbacks {
-    margin: 0;
-    padding: 0;
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 50px;
     list-style-type: none;
 }

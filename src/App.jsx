@@ -6,61 +6,50 @@ import Options from './components/Options/Options'
 import Feedback from './components/Feedback/Feedback'
 import Notification from './components/Notification/Notification'
 
-const feedback = {
-  good: 0,
-  neutral: 0,
-  bad: 0
-}
-
 function App() {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0
+  const [feedback, setFeedback] = useState(() => {
+    const parsedFeedback = JSON.parse(localStorage.getItem('feedback'));
+    return (
+      parsedFeedback || {
+        good: 0,
+        neutral: 0,
+        bad: 0
+      }
+    )
   })
 
-    // const updateGood = () => {
-    //   setGood(good + 1)
-    // }
- 
-    // const updateNeutral = () => {
-    //   setNeutral(neutral + 1)
-    // }
- 
-    // const updateBad = () => {
-    //   setBad(bad + 1)
-    // }
+  useEffect(() => {
+    localStorage.setItem("feedback", JSON.stringify(feedback));
+  }, [feedback])
 
-    // const updateTotal = () => {
-    //   setTotal(good + neutral + bad)
-    // }
+  const addReviewHandler = (review) => {
+    setFeedback({...feedback, [review]: feedback[review] + 1})
+  }
 
-    // const onReset = () => {
-    //   setGood(0)
-    //   setNeutral(0)
-    //   setBad(0)
-    //   setTotal(0)
-    //   setPositive(0)
-    // }
+  const totalFeedback = () => {
+    const {good, neutral, bad} = feedback;
+    return good + neutral + bad;
+  }
 
-    useEffect(() => {
-      localStorage.setItem("feedback", JSON.stringify(feedback));
-    }, [feedback])
+  const total = totalFeedback()
 
-    // useEffect(() => {
-    //   setTotal(good + neutral + bad)
-    // }, [good, neutral, bad])
- 
-    // useEffect(() => {
-    //   setPositive(Math.round(((good + neutral) / total) * 100))
-    // }, [good, neutral, total])
+  const resetFeedback = () => {
+    setFeedback({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    })
+  }
 
   return (
     <>
       <Description />
-      <Options updateGood={updateGood} updateNeutral={updateNeutral} updateBad={updateBad} updateTotal={updateTotal} total={total} onReset={onReset} feedback={feedback}/>
-      {total ? 
-      (<Feedback good={feedback.good} neutral={feedback.neutral} bad={feedback.bad} total={total} positive={positive} feedback={feedback}/>) : <Notification />}
+      <Options
+      addReview={addReviewHandler}
+      total={total}
+      resetFeedback={resetFeedback} 
+      />
+      {total ? (<Feedback {...feedback} total={total} />) : (<Notification />)}
     </>
   )
 }

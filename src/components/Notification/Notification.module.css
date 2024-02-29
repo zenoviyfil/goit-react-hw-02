@@ -1,0 +1,7 @@
+.notification {
+        font-size: 75px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 50px;
+}
